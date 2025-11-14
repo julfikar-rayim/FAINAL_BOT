@@ -72,12 +72,13 @@ def add_user(message):
     if not result:
         return bot.reply_to(message, "❌ ইউজার পাওয়া যায়নি! /start করতে বলুন।")
     user_id = result[0]
-    try:
-        for chat_id in ALLOWED_CHAT_IDS:
+    for chat_id in ALLOWED_CHAT_IDS:
+        try:
             bot.add_chat_members(chat_id, user_id)
-        bot.reply_to(message, f"✔ @{username} গ্রুপে অ্যাড হয়েছে!")
-    except Exception as e:
-        bot.reply_to(message, f"❌ অ্যাড করা যায়নি!\n{e}")
+        except Exception as e:
+            bot.reply_to(message, f"❌ @{username} গ্রুপে অ্যাড করা যায়নি!\n{e}")
+            return
+    bot.reply_to(message, f"✔ @{username} গ্রুপে অ্যাড হয়েছে!")
 
 # ================================
 # LINK FILTER SYSTEM
@@ -99,8 +100,10 @@ def link_filter(message):
                 bot.delete_message(message.chat.id, message.message_id)
             except:
                 pass
-            bot.send_message(message.chat.id,
-                             f"❌ শুধুমাত্র এই লিংক অনুমোদিত:\n{', '.join(ALLOWED_LINKS)}")
+            bot.send_message(
+                message.chat.id,
+                f"❌ শুধুমাত্র এই লিংক অনুমোদিত:\n{', '.join(ALLOWED_LINKS)}"
+            )
 
 # ================================
 # RUN BOT
