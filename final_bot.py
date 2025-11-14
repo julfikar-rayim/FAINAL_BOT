@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS users(
 conn.commit()
 
 # ================================
-# /start COMMAND
+# /start COMMAND - save user info
 # ================================
 @bot.message_handler(commands=['start'])
 def start_cmd(message):
@@ -57,7 +57,7 @@ def set_link(message):
     bot.reply_to(message, f"✔ অনুমোদিত লিংক আপডেট হয়েছে:\n{new_link}")
 
 # ================================
-# /adduser COMMAND
+# /adduser COMMAND (Owner only)
 # ================================
 @bot.message_handler(commands=['adduser'])
 def add_user(message):
